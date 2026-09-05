@@ -1,0 +1,17 @@
+{
+  "name": "dye-durham-name-sorter",
+  "version": "1.0.0",
+  "description": "A command-line program that sorts names by last name, then by given names.",
+  "type": "module",
+  "bin": {
+    "name-sorter": "./bin/name-sorter.js"
+  },
+  "scripts": {
+    "start": "node ./bin/name-sorter.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

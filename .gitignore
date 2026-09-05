@@ -1,0 +1,4 @@
+node_modules/
+sorted-names-list.txt
+.DS_Store
+coverage/

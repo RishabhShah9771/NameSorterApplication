@@ -1,6 +1,6 @@
 # Name Sorter
 
-A Node.js command-line application created for the Dye & Durham coding assessment.
+A Node.js command-line application for sorting and managing names.
 
 The program:
 

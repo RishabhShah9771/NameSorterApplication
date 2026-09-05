@@ -1,5 +1,3 @@
-# DyeDurhamAssessmentSolution
-
 # Name Sorter
 
 A Node.js command-line application created for the Dye & Durham coding assessment.

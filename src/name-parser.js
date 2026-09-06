@@ -3,26 +3,36 @@ import { PersonName } from './person-name.js';
 const MIN_PARTS = 2;
 const MAX_PARTS = 4;
 
-/**
- * Converts input lines into validated PersonName values.
- */
 export class NameParser {
   parseAll(content) {
     if (typeof content !== 'string') {
       throw new TypeError('Name input must be text.');
     }
 
-    return content
-      .split(/\r?\n/u)
-      .map((line, index) => ({
-        value: line.trim(),
-        lineNumber: index + 1,
-      }))
-      .filter(({ value }) => value.length > 0)
-      .map(({ value, lineNumber }) => this.parse(value, lineNumber));
+    const names = [];
+
+    // Support LF, CRLF, and CR line endings.
+    const lines = content.split(/\r\n?|\n/u);
+
+    for (const [index, line] of lines.entries()) {
+      const trimmedLine = line.trim();
+
+      // Empty and whitespace-only lines are intentionally ignored.
+      if (trimmedLine) {
+        names.push(this.parse(trimmedLine, index + 1));
+      }
+    }
+
+    return names;
   }
 
   parse(line, lineNumber = 1) {
+    if (typeof line !== 'string') {
+      throw new TypeError(
+        `Name on line ${lineNumber} must be text.`,
+      );
+    }
+
     const parts = line.trim().split(/\s+/u);
 
     if (parts.length < MIN_PARTS || parts.length > MAX_PARTS) {
@@ -31,6 +41,8 @@ export class NameParser {
       );
     }
 
-    return new PersonName(parts.slice(0, -1), parts.at(-1));
+    const lastName = parts.pop();
+
+    return new PersonName(parts, lastName);
   }
 }
